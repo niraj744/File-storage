@@ -46,8 +46,7 @@ export async function POST(req: Request) {
       email: email_addresses[0].email_address,
       imageUrl: image_url,
     });
-    return new Response("", { status: 200 });
   }
-
-  console.log(evt.data);
+  console.log(evt.data, evt.type);
+  return new Response("", { status: 200 });
 }
