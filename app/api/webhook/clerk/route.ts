@@ -40,7 +40,7 @@ export async function POST(req: Request) {
     await Connections();
     const { id, first_name, last_name, image_url, email_addresses } = evt.data;
     console.log(evt.data);
-    const create = User.create({
+    await User.create({
       clerkID: id,
       firstname: first_name,
       lastname: last_name,
