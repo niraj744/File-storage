@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Roboto } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
+import Connections from "@/DB/Connection";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,11 +15,12 @@ const roboto = Roboto({
   style: "normal",
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  await Connections();
   return (
     <ClerkProvider
       appearance={{
