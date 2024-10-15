@@ -39,7 +39,6 @@ export async function POST(req: Request) {
   if (evt.type === "user.created") {
     await Connections();
     const { id, first_name, last_name, image_url, email_addresses } = evt.data;
-    console.log(evt.data);
     await User.create({
       clerkID: id,
       firstname: first_name,
@@ -49,4 +48,6 @@ export async function POST(req: Request) {
     });
     return new Response("", { status: 200 });
   }
+
+  console.log(evt.data);
 }
