@@ -36,17 +36,17 @@ export async function POST(req: Request) {
       status: 400,
     });
   }
-  if (evt.type === "user.created") {
-    await Connections();
-    const { id, first_name, last_name, image_url, email_addresses } = evt.data;
-    await User.create({
-      clerkID: id,
-      firstname: first_name,
-      lastname: last_name,
-      email: email_addresses[0].email_address,
-      imageUrl: image_url,
-    });
-  }
+  // if (evt.type === "user.created") {
+  //   await Connections();
+  //   const { id, first_name, last_name, image_url, email_addresses } = evt.data;
+  //   await User.create({
+  //     clerkID: id,
+  //     firstname: first_name,
+  //     lastname: last_name,
+  //     email: email_addresses[0].email_address,
+  //     imageUrl: image_url,
+  //   });
+  // }
   console.log(evt.data, evt.type);
   return new Response("", { status: 200 });
 }
