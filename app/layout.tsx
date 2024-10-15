@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Roboto } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
-import Connections from "@/DB/Connection";
+import Wrapper from "@/lib/Providers/Wrapper";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,12 +15,11 @@ const roboto = Roboto({
   style: "normal",
 });
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  await Connections();
   return (
     <ClerkProvider
       appearance={{
@@ -32,7 +31,9 @@ export default async function RootLayout({
     >
       <html lang="en">
         <body>
-          <main className={roboto.className}>{children}</main>
+          <Wrapper>
+            <main className={roboto.className}>{children}</main>
+          </Wrapper>
         </body>
       </html>
     </ClerkProvider>
