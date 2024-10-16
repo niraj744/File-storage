@@ -1,6 +1,6 @@
 import User from "@/DB/Models/User";
 import { Create, UpdateUser } from "@/Types";
-import Connections from "@/DB/Connection";
+import { connectToDatabase } from "@/DB/Connection";
 import { revalidatePath } from "next/cache";
 
 export const CreateUser = async (UserDetail: Create) => {
@@ -12,7 +12,7 @@ export const CreateUser = async (UserDetail: Create) => {
 };
 export async function getUserById(userId: string) {
   try {
-    await Connections();
+    await connectToDatabase();
     const user = await User.findOne({ clerkId: userId });
     if (!user) throw new Error("User not found");
   } catch (error: any) {
@@ -21,7 +21,7 @@ export async function getUserById(userId: string) {
 }
 export async function updateUser(clerkId: string, user: UpdateUser) {
   try {
-    await Connections();
+    await connectToDatabase();
     const updatedUser = await User.findOneAndUpdate({ clerkId }, user);
     if (!updatedUser) throw new Error("User update failed");
   } catch (error: any) {
@@ -30,7 +30,7 @@ export async function updateUser(clerkId: string, user: UpdateUser) {
 }
 export async function deleteUser(clerkId: string) {
   try {
-    await Connections();
+    await connectToDatabase();
     const userToDelete = await User.findOne({ clerkId });
     if (!userToDelete) {
       throw new Error("User not found");
