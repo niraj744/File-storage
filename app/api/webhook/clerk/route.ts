@@ -38,10 +38,8 @@ export async function POST(req: Request) {
       status: 400,
     });
   }
-  const { id } = evt.data;
   const eventType = evt.type;
 
-  // CREATE
   if (eventType === "user.created") {
     const { id, email_addresses, image_url, first_name, last_name, username } =
       evt.data;
@@ -58,7 +56,6 @@ export async function POST(req: Request) {
     await CreateUser(user);
     return NextResponse.json({ message: "OK user successfully created" });
   }
-
   if (eventType === "user.updated") {
     const { id, image_url, first_name, last_name, username } = evt.data;
 
@@ -76,9 +73,5 @@ export async function POST(req: Request) {
     await deleteUser(id!);
     return NextResponse.json({ message: "OK user successfully deleted" });
   }
-
-  console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
-  console.log("Webhook body:", body);
-
   return new Response("", { status: 200 });
 }
