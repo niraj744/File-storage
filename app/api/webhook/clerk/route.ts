@@ -1,6 +1,10 @@
-import { Webhook } from "svix";
-import { headers } from "next/headers";
+/* eslint-disable camelcase */
 import { WebhookEvent } from "@clerk/nextjs/server";
+import { headers } from "next/headers";
+import { NextResponse } from "next/server";
+import { Webhook } from "svix";
+
+import { CreateUser, deleteUser, updateUser } from "@/Actions/user.actions";
 
 export async function POST(req: Request) {
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
@@ -34,17 +38,47 @@ export async function POST(req: Request) {
       status: 400,
     });
   }
-  // if (evt.type === "user.created") {
-  //   await Connections();
-  //   const { id, first_name, last_name, image_url, email_addresses } = evt.data;
-  //   await User.create({
-  //     clerkID: id,
-  //     firstname: first_name,
-  //     lastname: last_name,
-  //     email: email_addresses[0].email_address,
-  //     imageUrl: image_url,
-  //   });
-  // }
-  console.log(evt.data, evt.type);
+  const { id } = evt.data;
+  const eventType = evt.type;
+
+  // CREATE
+  if (eventType === "user.created") {
+    const { id, email_addresses, image_url, first_name, last_name, username } =
+      evt.data;
+
+    const user = {
+      clerkId: id,
+      email: email_addresses[0].email_address,
+      username: username!,
+      firstName: first_name!,
+      lastName: last_name!,
+      imageUrl: image_url,
+    };
+
+    await CreateUser(user);
+    return NextResponse.json({ message: "OK user successfully created" });
+  }
+
+  if (eventType === "user.updated") {
+    const { id, image_url, first_name, last_name, username } = evt.data;
+
+    const user = {
+      firstName: first_name!,
+      lastName: last_name!,
+      username: username!,
+      imageUrl: image_url,
+    };
+    await updateUser(id, user);
+    return NextResponse.json({ message: "OK user successfully updated" });
+  }
+  if (eventType === "user.deleted") {
+    const { id } = evt.data;
+    await deleteUser(id!);
+    return NextResponse.json({ message: "OK user successfully deleted" });
+  }
+
+  console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
+  console.log("Webhook body:", body);
+
   return new Response("", { status: 200 });
 }
