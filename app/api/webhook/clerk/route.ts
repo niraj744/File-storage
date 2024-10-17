@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
@@ -52,7 +51,6 @@ export async function POST(req: Request) {
       lastName: last_name!,
       imageUrl: image_url,
     };
-
     await CreateUser(user);
     return NextResponse.json({ message: "OK user successfully created" });
   }
@@ -73,5 +71,6 @@ export async function POST(req: Request) {
     await deleteUser(id!);
     return NextResponse.json({ message: "OK user successfully deleted" });
   }
+
   return new Response("", { status: 200 });
 }

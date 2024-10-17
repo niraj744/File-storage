@@ -25,7 +25,6 @@ export const connectToDatabase = async () => {
     cached.promise ||
     mongoose.connect(MONGODB_URL, {
       dbName: "FileStorage",
-      bufferCommands: false,
     });
 
   cached.conn = await cached.promise;

@@ -1,11 +1,13 @@
 import User from "@/DB/Models/User";
 import { Create, UpdateUser } from "@/Types";
 import { connectToDatabase } from "@/DB/Connection";
-import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export const CreateUser = async (UserDetail: Create) => {
   try {
+    await connectToDatabase();
     await User.create(UserDetail);
+    redirect("/dashboard");
   } catch (error: unknown) {
     console.log((error as Error).message);
   }
@@ -15,8 +17,8 @@ export async function getUserById(userId: string) {
     await connectToDatabase();
     const user = await User.findOne({ clerkId: userId });
     if (!user) throw new Error("User not found");
-  } catch (error: any) {
-    console.log(error.message);
+  } catch (error: unknown) {
+    console.log((error as Error).message);
   }
 }
 export async function updateUser(clerkId: string, user: UpdateUser) {
@@ -24,8 +26,8 @@ export async function updateUser(clerkId: string, user: UpdateUser) {
     await connectToDatabase();
     const updatedUser = await User.findOneAndUpdate({ clerkId }, user);
     if (!updatedUser) throw new Error("User update failed");
-  } catch (error: any) {
-    console.log(error.message);
+  } catch (error: unknown) {
+    console.log((error as Error).message);
   }
 }
 export async function deleteUser(clerkId: string) {
@@ -36,8 +38,7 @@ export async function deleteUser(clerkId: string) {
       throw new Error("User not found");
     }
     await User.findByIdAndDelete(userToDelete._id);
-    revalidatePath("/");
-  } catch (error: any) {
-    console.log(error.message);
+  } catch (error: unknown) {
+    console.log((error as Error).message);
   }
 }
