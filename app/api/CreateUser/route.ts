@@ -1,3 +1,4 @@
+export const maxDuration = 60;
 export const dynamic = "force-dynamic";
 
 import { CreateUser, getUserById } from "@/Actions/user.actions";
