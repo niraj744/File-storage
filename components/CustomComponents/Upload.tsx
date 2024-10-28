@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
 import { useCallback, useEffect, useState } from "react";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import { CreateFile, File } from "@/Types";
+import { CreateFile } from "@/Types";
 import { useRouter } from "next/navigation";
 import { getUserById } from "@/Actions/user.actions";
 import { UploadFile } from "@/Actions/file.actions";

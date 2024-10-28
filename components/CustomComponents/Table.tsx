@@ -14,7 +14,7 @@ const Table = ({ files }: { files: FileTypes[] }) => {
       toast({
         title: "File deleted successfully",
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         title: (error as Error).message,
         variant: "destructive",

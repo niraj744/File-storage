@@ -1,6 +1,5 @@
 import { getFileById } from "@/Actions/file.actions";
 import FileDownload from "@/components/CustomComponents/FileDownload";
-import { FileTypes } from "@/Types";
 import { redirect } from "next/navigation";
 
 export default async function FilePreviewPage({
