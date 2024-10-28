@@ -3,6 +3,7 @@ import "./globals.css";
 import { Roboto } from "next/font/google";
 import Wrapper from "@/lib/Providers/Wrapper";
 import { Toaster } from "@/components/ui/toaster";
+import Auth from "@/lib/Providers/Auth";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,13 +22,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={roboto.className}>
-        <Wrapper>
-          <main>{children}</main>
-        </Wrapper>
-        <Toaster />
-      </body>
-    </html>
+    <Auth>
+      <html lang="en">
+        <body className={roboto.className}>
+          <Wrapper>
+            <main>{children}</main>
+          </Wrapper>
+          <Toaster />
+        </body>
+      </html>
+    </Auth>
   );
 }
