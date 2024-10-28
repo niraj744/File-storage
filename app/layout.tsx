@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Roboto } from "next/font/google";
-import { ClerkProvider } from "@clerk/nextjs";
 import Wrapper from "@/lib/Providers/Wrapper";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,21 +21,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider
-      appearance={{
-        variables: {
-          colorPrimary: "blue",
-          colorText: "black",
-        },
-      }}
-    >
-      <html lang="en">
-        <body>
-          <Wrapper>
-            <main className={roboto.className}>{children}</main>
-          </Wrapper>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      <body className={roboto.className}>
+        <Wrapper>
+          <main>{children}</main>
+        </Wrapper>
+        <Toaster />
+      </body>
+    </html>
   );
 }
