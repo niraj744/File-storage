@@ -1,5 +1,4 @@
 "use server";
-export const maxDuration = 60;
 
 import { connectToDatabase } from "@/DB/Connection";
 import File from "@/DB/Models/File";
