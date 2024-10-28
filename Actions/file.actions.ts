@@ -39,7 +39,7 @@ export const UploadFile = async (data: CreateFile) => {
       fileUrl: imageUrl,
     };
     const file = await File.create(obj);
-    file.slug = `${process.env.URL}/${file._id}`;
+    file.slug = `${process.env.URL1}/${file._id}`;
     await file.save();
     revalidatePath("/dashboard/file");
     return JSON.parse(JSON.stringify(file));
@@ -104,7 +104,7 @@ export const SendEmail = async (emailData: Emailtypes) => {
     subject: "Request to view file",
     html: `<div>
     <h1>${emailData.username} send this file to view.</h1>
-    <a href=${process.env.URL + `/${emailData.fileID}`}>click to view</a>
+    <a href=${process.env.URL1 + `/${emailData.fileID}`}>click to view</a>
     </div>`,
   };
   try {
