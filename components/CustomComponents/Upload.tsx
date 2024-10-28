@@ -51,7 +51,7 @@ const Upload = () => {
   const upload = async () => {
     setLoading(true);
     try {
-      const userid = await getUserById(user?.id!);
+      const userid = await getUserById(user?.id || "");
       const file = await fileToBase64(myFiles[0]);
       const fileUploadObject: CreateFile = {
         fileName: myFiles[0].name,

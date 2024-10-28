@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { CreateUser, getUserById } from "@/Actions/user.actions";
 import { Create } from "@/Types";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
