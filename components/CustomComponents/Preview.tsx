@@ -104,7 +104,7 @@ const Preview = ({ data }: { data: FileTypes }) => {
                 className="flex justify-between gap-2 border-2 border-gray-300 p-2 rounded-md cursor-pointer"
                 onClick={copy}
               >
-                <p className="w-full max-w-[300px] text-ellipsis overflow-hidden">
+                <p className="w-full max-w-[300px] whitespace-nowrap text-ellipsis overflow-hidden">
                   {data.slug}
                 </p>
                 <Copy className="text-gray-500" size={20} />
