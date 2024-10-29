@@ -69,9 +69,9 @@ export const updateFile = async (id: string, obj: UpdateFile) => {
   }
 };
 export const Files = async () => {
-  const { getUser } = await getKindeServerSession();
-  const user = await getUser();
   try {
+    const { getUser } = await getKindeServerSession();
+    const user = await getUser();
     await connectToDatabase();
     const fetchUser: type | null = await User.findOne({ kindId: user.id });
     const files = await File.find({ userId: fetchUser?._id }).populate({
